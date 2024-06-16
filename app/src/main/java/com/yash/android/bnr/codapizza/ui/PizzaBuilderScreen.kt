@@ -10,6 +10,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -22,17 +23,18 @@ import com.yash.android.bnr.codapizza.model.Pizza
 import com.yash.android.bnr.codapizza.model.Topping
 import com.yash.android.bnr.codapizza.model.ToppingPlacement
 
-private var pizza by mutableStateOf(Pizza())
-
 @Preview
 @Composable
 fun PizzaBuilderScreen(
     modifier: Modifier = Modifier
 ) {
+    var pizza by remember { mutableStateOf(Pizza()) }
     Column(
         modifier = modifier
     ) {
         ToppingList(
+            pizza = pizza,
+            onEditPizza = { pizza = it },
             modifier = Modifier
                 .fillMaxWidth()
                 .weight(1f, fill = true)
@@ -47,6 +49,8 @@ fun PizzaBuilderScreen(
 
 @Composable
 private fun ToppingList(
+    pizza: Pizza,
+    onEditPizza: (Pizza) -> Unit,
     modifier: Modifier = Modifier
 ) {
     LazyColumn(
@@ -58,14 +62,14 @@ private fun ToppingList(
                 placement = pizza.toppings[topping],
                 onClickTopping = {
                     val isOnPizza = pizza.toppings[topping] != null
-                    pizza = pizza.withTopping(
+                    onEditPizza(pizza.withTopping(
                         topping = topping,
                         if (isOnPizza) {
                             null
                         } else {
                             ToppingPlacement.All
                         }
-                    )
+                    ))
                 }
             )
         }
