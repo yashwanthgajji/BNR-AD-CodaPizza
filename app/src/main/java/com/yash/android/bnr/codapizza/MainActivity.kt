@@ -1,14 +1,18 @@
 package com.yash.android.bnr.codapizza
 
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
+import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import com.yash.android.bnr.codapizza.model.Topping
+import com.yash.android.bnr.codapizza.model.ToppingPlacement
+import com.yash.android.bnr.codapizza.ui.PizzaBuilderScreen
+import com.yash.android.bnr.codapizza.ui.ToppingCell
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContent {
+            PizzaBuilderScreen()
+        }
     }
 }
