@@ -1,5 +1,6 @@
 package com.yash.android.bnr.codapizza.ui
 
+import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -15,8 +16,20 @@ import androidx.compose.ui.text.toUpperCase
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.yash.android.bnr.codapizza.R
+import com.yash.android.bnr.codapizza.model.Pizza
 import com.yash.android.bnr.codapizza.model.Topping
 import com.yash.android.bnr.codapizza.model.ToppingPlacement
+
+private var pizza = Pizza(
+    toppings = mapOf(
+        Topping.Pineapple to ToppingPlacement.Right,
+        Topping.Olive to ToppingPlacement.All
+    )
+)
+    set(value) {
+        Log.d("PizzaBuilderScreen", "Reassigned pizza to $value")
+        field = value
+    }
 
 @Preview
 @Composable
@@ -49,8 +62,18 @@ private fun ToppingList(
         items(Topping.values()) { topping ->
             ToppingCell(
                 topping = topping,
-                placement = ToppingPlacement.Left,
-                onClickTopping = { /* TODO */}
+                placement = pizza.toppings[topping],
+                onClickTopping = {
+                    val isOnPizza = pizza.toppings[topping] != null
+                    pizza = pizza.withTopping(
+                        topping = topping,
+                        if (isOnPizza) {
+                            null
+                        } else {
+                            ToppingPlacement.All
+                        }
+                    )
+                }
             )
         }
     }
