@@ -1,6 +1,6 @@
 package com.yash.android.bnr.codapizza.model
 
-data class Pizza(val toppings: Map<Topping, ToppingPlacement>) {
+data class Pizza(val toppings: Map<Topping, ToppingPlacement> = emptyMap()) {
     fun withTopping(topping: Topping, toppingPlacement: ToppingPlacement?): Pizza {
         return copy(
             toppings = if (toppingPlacement == null) {
