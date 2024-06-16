@@ -3,6 +3,8 @@ package com.yash.android.bnr.codapizza.ui
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -41,12 +43,16 @@ fun PizzaBuilderScreen(
 private fun ToppingList(
     modifier: Modifier = Modifier
 ) {
-    ToppingCell(
-        topping = Topping.Peppers,
-        placement = ToppingPlacement.Right,
+    LazyColumn(
         modifier = modifier
     ) {
-
+        items(Topping.values()) { topping ->
+            ToppingCell(
+                topping = topping,
+                placement = ToppingPlacement.Left,
+                onClickTopping = { /* TODO */}
+            )
+        }
     }
 }
 
