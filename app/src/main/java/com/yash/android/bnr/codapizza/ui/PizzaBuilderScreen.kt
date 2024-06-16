@@ -22,6 +22,7 @@ import com.yash.android.bnr.codapizza.R
 import com.yash.android.bnr.codapizza.model.Pizza
 import com.yash.android.bnr.codapizza.model.Topping
 import com.yash.android.bnr.codapizza.model.ToppingPlacement
+import java.text.NumberFormat
 
 @Preview
 @Composable
@@ -40,6 +41,7 @@ fun PizzaBuilderScreen(
                 .weight(1f, fill = true)
         )
         OrderButton(
+            pizza = pizza,
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(all = 16.dp)
@@ -56,7 +58,7 @@ private fun ToppingList(
     LazyColumn(
         modifier = modifier
     ) {
-        items(Topping.values()) { topping ->
+        items(Topping.entries.toTypedArray()) { topping ->
             ToppingCell(
                 topping = topping,
                 placement = pizza.toppings[topping],
@@ -78,14 +80,17 @@ private fun ToppingList(
 
 @Composable
 private fun OrderButton(
+    pizza: Pizza,
     modifier: Modifier = Modifier
 ) {
     Button(
         modifier = modifier,
         onClick = { /*TODO*/ }
     ) {
+        val currencyFormatter = remember { NumberFormat.getCurrencyInstance() }
+        val price = currencyFormatter.format(pizza.price)
         Text(
-            text = stringResource(id = R.string.place_order_button).toUpperCase(Locale.current)
+            text = stringResource(id = R.string.place_order_button, price).toUpperCase(Locale.current)
         )
     }
 }
