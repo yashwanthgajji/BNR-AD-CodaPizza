@@ -11,7 +11,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            ToppingCell(topping = Topping.Olive, toppingPlacement = ToppingPlacement.All) {
+            ToppingCell(topping = Topping.Olive, placement = ToppingPlacement.All) {
 
             }
         }
