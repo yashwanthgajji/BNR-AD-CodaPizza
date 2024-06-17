@@ -22,7 +22,6 @@ import androidx.compose.ui.unit.dp
 import com.yash.android.bnr.codapizza.R
 import com.yash.android.bnr.codapizza.model.Pizza
 import com.yash.android.bnr.codapizza.model.Topping
-import com.yash.android.bnr.codapizza.model.ToppingPlacement
 import java.text.NumberFormat
 
 @Preview
@@ -56,6 +55,16 @@ private fun ToppingList(
     onEditPizza: (Pizza) -> Unit,
     modifier: Modifier = Modifier
 ) {
+    var toppingBeingAdded by rememberSaveable { mutableStateOf<Topping?>(null) }
+    toppingBeingAdded?.let { topping ->
+        ToppingPlacementDialog(
+            topping = topping,
+            onSetToppingPlacement = { placement ->
+                onEditPizza(pizza.withTopping(topping, placement))
+            },
+            onDismissRequest = { toppingBeingAdded = null }
+        )
+    }
     LazyColumn(
         modifier = modifier
     ) {
@@ -64,15 +73,7 @@ private fun ToppingList(
                 topping = topping,
                 placement = pizza.toppings[topping],
                 onClickTopping = {
-                    val isOnPizza = pizza.toppings[topping] != null
-                    onEditPizza(pizza.withTopping(
-                        topping = topping,
-                        if (isOnPizza) {
-                            null
-                        } else {
-                            ToppingPlacement.All
-                        }
-                    ))
+                    toppingBeingAdded = topping
                 }
             )
         }
