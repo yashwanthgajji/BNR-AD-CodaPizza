@@ -35,12 +35,11 @@ fun PizzaBuilderScreen(
         modifier = modifier
     ) {
         PizzaSizeDropdownMenu(
+            pizza = pizza,
             expanded = dropdownExpanded,
             modifier = Modifier
                 .fillMaxWidth(),
-            onSetPizzaSize = { size ->
-                pizza = pizza.withSize(size)
-            },
+            onSetPizzaSize = { pizza = it },
             onDropdownButtonClicked = { dropdownExpanded = true },
             onDismissRequest = { dropdownExpanded = false }
         )

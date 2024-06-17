@@ -12,7 +12,7 @@
     <string name="topping_peppers">Peppers</string>
     <string name="topping_pepperoni">Pepperoni</string>
     <string name="topping_pineapple">Pineapple</string>
-    <string name="size_button_text">Select Pizza Size</string>
+    <string name="size_button_text">Select Pizza Size - %1$s</string>
     <string name="size_small">Small</string>
     <string name="size_medium">Medium</string>
     <string name="size_large">Large</string>
