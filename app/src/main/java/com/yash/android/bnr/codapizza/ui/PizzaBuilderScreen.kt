@@ -30,9 +30,20 @@ fun PizzaBuilderScreen(
     modifier: Modifier = Modifier
 ) {
     var pizza by rememberSaveable { mutableStateOf(Pizza()) }
+    var dropdownExpanded by rememberSaveable { mutableStateOf(false) }
     Column(
         modifier = modifier
     ) {
+        PizzaSizeDropdownMenu(
+            expanded = dropdownExpanded,
+            modifier = Modifier
+                .fillMaxWidth(),
+            onSetPizzaSize = { size ->
+                pizza = pizza.withSize(size)
+            },
+            onDropdownButtonClicked = { dropdownExpanded = true },
+            onDismissRequest = { dropdownExpanded = false }
+        )
         ToppingList(
             pizza = pizza,
             onEditPizza = { pizza = it },
