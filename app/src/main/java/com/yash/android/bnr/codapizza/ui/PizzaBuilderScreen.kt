@@ -22,7 +22,6 @@ import androidx.compose.ui.unit.dp
 import com.yash.android.bnr.codapizza.R
 import com.yash.android.bnr.codapizza.model.Pizza
 import com.yash.android.bnr.codapizza.model.Topping
-import com.yash.android.bnr.codapizza.model.ToppingPlacement
 import java.text.NumberFormat
 
 @Preview
