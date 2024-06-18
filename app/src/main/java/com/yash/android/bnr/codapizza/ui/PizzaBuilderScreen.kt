@@ -7,6 +7,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Button
 import androidx.compose.material.Text
+import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -34,6 +35,9 @@ fun PizzaBuilderScreen(
     Column(
         modifier = modifier
     ) {
+        TopAppBar(
+            title = { Text(text = stringResource(id = R.string.app_name)) }
+        )
         PizzaHeroImage(pizza = pizza, modifier = Modifier)
         PizzaSizeDropdownMenu(
             pizza = pizza,
