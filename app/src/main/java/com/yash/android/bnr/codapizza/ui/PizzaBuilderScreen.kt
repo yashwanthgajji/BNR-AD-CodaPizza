@@ -1,6 +1,5 @@
 package com.yash.android.bnr.codapizza.ui
 
-import android.annotation.SuppressLint
 import android.widget.Toast
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
