@@ -34,6 +34,7 @@ fun PizzaBuilderScreen(
     Column(
         modifier = modifier
     ) {
+        PizzaHeroImage(pizza = pizza, modifier = Modifier)
         PizzaSizeDropdownMenu(
             pizza = pizza,
             expanded = dropdownExpanded,
