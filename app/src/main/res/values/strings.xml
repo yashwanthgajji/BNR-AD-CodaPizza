@@ -17,4 +17,6 @@
     <string name="size_medium">Medium</string>
     <string name="size_large">Large</string>
     <string name="size_extra_large">Extra Large</string>
+    <string name="pizza_preview">Pizza preview</string>
+    <string name="order_placed_toast">Order submitted!</string>
 </resources>

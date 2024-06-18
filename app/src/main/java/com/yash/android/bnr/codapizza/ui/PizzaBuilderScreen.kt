@@ -1,12 +1,15 @@
 package com.yash.android.bnr.codapizza.ui
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Button
+import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
+import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -14,6 +17,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.intl.Locale
 import androidx.compose.ui.text.toUpperCase
@@ -31,32 +35,41 @@ fun PizzaBuilderScreen(
 ) {
     var pizza by rememberSaveable { mutableStateOf(Pizza()) }
     var dropdownExpanded by rememberSaveable { mutableStateOf(false) }
-    Column(
-        modifier = modifier
-    ) {
-        PizzaSizeDropdownMenu(
-            pizza = pizza,
-            expanded = dropdownExpanded,
-            modifier = Modifier
-                .fillMaxWidth(),
-            onSetPizzaSize = { pizza = it },
-            onDropdownButtonClicked = { dropdownExpanded = true },
-            onDismissRequest = { dropdownExpanded = false }
-        )
-        ToppingList(
-            pizza = pizza,
-            onEditPizza = { pizza = it },
-            modifier = Modifier
-                .fillMaxWidth()
-                .weight(1f, fill = true)
-        )
-        OrderButton(
-            pizza = pizza,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(all = 16.dp)
-        )
-    }
+    Scaffold(
+        modifier = modifier,
+        topBar = {
+            TopAppBar(
+                title = { Text(text = stringResource(id = R.string.app_name)) }
+            )
+        },
+        content = {
+            Column(modifier = modifier.padding(it)) {
+                PizzaHeroImage(pizza = pizza, modifier = Modifier)
+                PizzaSizeDropdownMenu(
+                    pizza = pizza,
+                    expanded = dropdownExpanded,
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                    onSetPizzaSize = { pizza = it },
+                    onDropdownButtonClicked = { dropdownExpanded = true },
+                    onDismissRequest = { dropdownExpanded = false }
+                )
+                ToppingList(
+                    pizza = pizza,
+                    onEditPizza = { pizza = it },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .weight(1f, fill = true)
+                )
+                OrderButton(
+                    pizza = pizza,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(all = 16.dp)
+                )
+            }
+        }
+    )
 }
 
 @Composable
@@ -95,9 +108,12 @@ private fun OrderButton(
     pizza: Pizza,
     modifier: Modifier = Modifier
 ) {
+    val context = LocalContext.current
     Button(
         modifier = modifier,
-        onClick = { /*TODO*/ }
+        onClick = {
+            Toast.makeText(context, R.string.order_placed_toast, Toast.LENGTH_SHORT).show()
+        }
     ) {
         val currencyFormatter = remember { NumberFormat.getCurrencyInstance() }
         val price = currencyFormatter.format(pizza.price)
