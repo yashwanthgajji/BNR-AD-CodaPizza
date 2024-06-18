@@ -1,11 +1,13 @@
 package com.yash.android.bnr.codapizza.ui
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Button
+import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
@@ -32,36 +34,41 @@ fun PizzaBuilderScreen(
 ) {
     var pizza by rememberSaveable { mutableStateOf(Pizza()) }
     var dropdownExpanded by rememberSaveable { mutableStateOf(false) }
-    Column(
-        modifier = modifier
-    ) {
-        TopAppBar(
-            title = { Text(text = stringResource(id = R.string.app_name)) }
-        )
-        PizzaHeroImage(pizza = pizza, modifier = Modifier)
-        PizzaSizeDropdownMenu(
-            pizza = pizza,
-            expanded = dropdownExpanded,
-            modifier = Modifier
-                .fillMaxWidth(),
-            onSetPizzaSize = { pizza = it },
-            onDropdownButtonClicked = { dropdownExpanded = true },
-            onDismissRequest = { dropdownExpanded = false }
-        )
-        ToppingList(
-            pizza = pizza,
-            onEditPizza = { pizza = it },
-            modifier = Modifier
-                .fillMaxWidth()
-                .weight(1f, fill = true)
-        )
-        OrderButton(
-            pizza = pizza,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(all = 16.dp)
-        )
-    }
+    Scaffold(
+        modifier = modifier,
+        topBar = {
+            TopAppBar(
+                title = { Text(text = stringResource(id = R.string.app_name)) }
+            )
+        },
+        content = {
+            Column(modifier = modifier.padding(it)) {
+                PizzaHeroImage(pizza = pizza, modifier = Modifier)
+                PizzaSizeDropdownMenu(
+                    pizza = pizza,
+                    expanded = dropdownExpanded,
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                    onSetPizzaSize = { pizza = it },
+                    onDropdownButtonClicked = { dropdownExpanded = true },
+                    onDismissRequest = { dropdownExpanded = false }
+                )
+                ToppingList(
+                    pizza = pizza,
+                    onEditPizza = { pizza = it },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .weight(1f, fill = true)
+                )
+                OrderButton(
+                    pizza = pizza,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(all = 16.dp)
+                )
+            }
+        }
+    )
 }
 
 @Composable
